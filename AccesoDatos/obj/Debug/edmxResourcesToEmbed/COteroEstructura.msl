@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="COteroEstructuraModelStoreContainer" CdmEntityContainer="COteroEstructuraEntities1">
+    <EntitySetMapping Name="Departamentoes">
+      <EntityTypeMapping TypeName="COteroEstructuraModel.Departamento">
+        <MappingFragment StoreEntitySet="Departamento">
+          <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleadoes">
+      <EntityTypeMapping TypeName="COteroEstructuraModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="PuestoID" ColumnName="PuestoID" />
+          <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Puestoes">
+      <EntityTypeMapping TypeName="COteroEstructuraModel.Puesto">
+        <MappingFragment StoreEntitySet="Puesto">
+          <ScalarProperty Name="PuestoID" ColumnName="PuestoID" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DepartamentoGetAll" FunctionName="COteroEstructuraModel.Store.DepartamentoGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COteroEstructuraModel.DepartamentoGetAll_Result">
+          <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EmpleadoAdd" FunctionName="COteroEstructuraModel.Store.EmpleadoAdd" />
+    <FunctionImportMapping FunctionImportName="EmpleadoDelete" FunctionName="COteroEstructuraModel.Store.EmpleadoDelete" />
+    <FunctionImportMapping FunctionImportName="EmpleadoGetByName" FunctionName="COteroEstructuraModel.Store.EmpleadoGetByName" />
+    <FunctionImportMapping FunctionImportName="PuestoGetAll" FunctionName="COteroEstructuraModel.Store.PuestoGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COteroEstructuraModel.PuestoGetAll_Result">
+          <ScalarProperty Name="PuestoID" ColumnName="PuestoID" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EmpleadoGetAll" FunctionName="COteroEstructuraModel.Store.EmpleadoGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COteroEstructuraModel.EmpleadoGetAll_Result">
+          <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="DescripcionPuesto" ColumnName="DescripcionPuesto" />
+          <ScalarProperty Name="DescripcionDepa" ColumnName="DescripcionDepa" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="VistaEmpleadoes">
+      <EntityTypeMapping TypeName="COteroEstructuraModel.VistaEmpleado">
+        <MappingFragment StoreEntitySet="VistaEmpleado">
+          <ScalarProperty Name="DescripcionDepa" ColumnName="DescripcionDepa" />
+          <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+          <ScalarProperty Name="DescripcionPuesto" ColumnName="DescripcionPuesto" />
+          <ScalarProperty Name="PuestoID" ColumnName="PuestoID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="EmpleadoID" ColumnName="EmpleadoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

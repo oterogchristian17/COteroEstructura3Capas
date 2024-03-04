@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="COteroEstructuraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="DepartamentoID" />
+    </Key>
+    <Property Name="DepartamentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empleadoes" Relationship="Self.FK__Empleado__Depart__15502E78" FromRole="Departamento" ToRole="Empleado" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="EmpleadoID" />
+    </Key>
+    <Property Name="EmpleadoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PuestoID" Type="Int32" />
+    <Property Name="DepartamentoID" Type="Int32" />
+    <NavigationProperty Name="Departamento" Relationship="Self.FK__Empleado__Depart__15502E78" FromRole="Empleado" ToRole="Departamento" />
+    <NavigationProperty Name="Puesto" Relationship="Self.FK__Empleado__Puesto__145C0A3F" FromRole="Empleado" ToRole="Puesto" />
+  </EntityType>
+  <EntityType Name="Puesto">
+    <Key>
+      <PropertyRef Name="PuestoID" />
+    </Key>
+    <Property Name="PuestoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empleadoes" Relationship="Self.FK__Empleado__Puesto__145C0A3F" FromRole="Puesto" ToRole="Empleado" />
+  </EntityType>
+  <Association Name="FK__Empleado__Depart__15502E78">
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamento">
+        <PropertyRef Name="DepartamentoID" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="DepartamentoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Empleado__Puesto__145C0A3F">
+    <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Puesto">
+        <PropertyRef Name="PuestoID" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="PuestoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="COteroEstructuraEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Departamentoes" EntityType="Self.Departamento" />
+    <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+    <EntitySet Name="Puestoes" EntityType="Self.Puesto" />
+    <AssociationSet Name="FK__Empleado__Depart__15502E78" Association="Self.FK__Empleado__Depart__15502E78">
+      <End Role="Departamento" EntitySet="Departamentoes" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Empleado__Puesto__145C0A3F" Association="Self.FK__Empleado__Puesto__145C0A3F">
+      <End Role="Puesto" EntitySet="Puestoes" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+    </AssociationSet>
+    <FunctionImport Name="DepartamentoGetAll" ReturnType="Collection(COteroEstructuraModel.DepartamentoGetAll_Result)" />
+    <FunctionImport Name="EmpleadoAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="PuestoID" Mode="In" Type="Int32" />
+      <Parameter Name="DepartamentoID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EmpleadoDelete">
+      <Parameter Name="EmpleadoID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EmpleadoGetByName">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="PuestoGetAll" ReturnType="Collection(COteroEstructuraModel.PuestoGetAll_Result)" />
+    <FunctionImport Name="EmpleadoGetAll" ReturnType="Collection(COteroEstructuraModel.EmpleadoGetAll_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="VistaEmpleadoes" EntityType="COteroEstructuraModel.VistaEmpleado" />
+  </EntityContainer>
+  <ComplexType Name="DepartamentoGetAll_Result">
+    <Property Type="Int32" Name="DepartamentoID" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="PuestoGetAll_Result">
+    <Property Type="Int32" Name="PuestoID" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="EmpleadoGetAll_Result">
+    <Property Type="Int32" Name="EmpleadoID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DescripcionPuesto" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="DescripcionDepa" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="VistaEmpleado">
+    <Key>
+      <PropertyRef Name="EmpleadoID" />
+    </Key>
+    <Property Name="EmpleadoID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PuestoID" Type="Int32" />
+    <Property Name="DescripcionPuesto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DepartamentoID" Type="Int32" />
+    <Property Name="DescripcionDepa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

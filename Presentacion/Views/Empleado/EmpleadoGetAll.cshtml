@@ -1,0 +1,95 @@
+﻿@model Negocio.Empleado
+@{
+    ViewBag.Title = "EmpleadoGetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Empleados </h2>
+
+
+<div class="row">
+
+   
+    @using (Html.BeginForm("EmpleadoGetAll", "Empleado", FormMethod.Get, new { enctype = "multipart/form-data" }))
+    {
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Buscar por Nombre" })
+        </div>
+
+        <input type="submit" value="Buscar" class="btn btn-dark" />
+
+    }
+</div>
+<br>
+<br>
+
+@if (Model == null)
+{
+
+    <div class="alert alert-warning" role="alert">
+        Ocurrio Error!
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table align-middle table table-striped table-bordered" id="tabla">
+            <thead>
+                <tr>
+
+                    <th scope="col">EmpleadoID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Puesto</th>
+                    <th scope="col">Departamento</th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Negocio.Empleado empleado in Model.Empleados)
+                {
+                    <tr>
+
+
+                        <td> @empleado.EmpleadoID</td>
+                        <td> @empleado.Nombre</td>
+                        <td> @empleado.Puesto.Descripcion</td>
+                        <td> @empleado.Departamento.Descripcion </td>
+
+                        <td>  <a href="@Url.Action("Delete", "Empleado",new {EmpleadoID = empleado.EmpleadoID })" class="btn btn-success"><i class="bi bi-trash3-fill"></i></a> </td>
+
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.material.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#tabla').DataTable({
+            searching: false,
+            "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+            autoWidth: false,
+            columnDefs: [
+                {
+                    targets: ['_all'],
+                    className: 'mdc-data-table__cell',
+                },
+            ],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+            },
+
+        });
+    });
+
+</script>
+
